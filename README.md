@@ -107,10 +107,10 @@ Check boundaries + scents
 Return formatted output
 
 ### Design Decisions
-Array-based rotation → simple and scalable
-Set for scents → efficient lookup
-Pure functions → testability
-Separation of concerns → clean architecture
+- Array-based rotation → simple and scalable
+- Set for scents → efficient lookup
+- Pure functions → testability
+- Separation of concerns → clean architecture
 
 ### Extensibility
 
