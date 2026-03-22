@@ -94,18 +94,19 @@ All core logic lives in the utils folder, independent of the UI. This ensures:
 - Reusable across environments 
 
 ### Execution Flow
+```txt
 User Input
    ↓
 simulateRobots
    ↓
 processRobot (per robot)
    ↓
-Apply instructions
+Apply Instructions
    ↓
-Check boundaries + scents
+Check Boundaries + Scents
    ↓
-Return formatted output
-
+Return Final Output
+```
 ### Design Decisions
 - Array-based rotation → simple and scalable
 - Set for scents → efficient lookup
