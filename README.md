@@ -82,6 +82,41 @@ LLFFFLFLFL
 ```
 
 ---
+## Approach
+The solution is built using a utility Approach, where the core robot simulation logic is separated into reusable helper functions. This keeps the code modular, testable, and easy to extend.
+
+### Utility Layer
+
+All core logic lives in the utils folder, independent of the UI. This ensures:
+
+- Pure functions (easy to test)
+- No React dependency
+- Reusable across environments 
+
+### Execution Flow
+User Input
+   ↓
+simulateRobots
+   ↓
+processRobot (per robot)
+   ↓
+Apply instructions
+   ↓
+Check boundaries + scents
+   ↓
+Return formatted output
+
+### Design Decisions
+Array-based rotation → simple and scalable
+Set for scents → efficient lookup
+Pure functions → testability
+Separation of concerns → clean architecture
+
+### Extensibility
+
+The system is designed to support future enhancements:
+
+- New commands (e.g. B for backward)
 
 ## 📈 Future Improvements
 
@@ -92,6 +127,7 @@ LLFFFLFLFL
 - Mobile responsiveness
 
 ---
+## App [Martian Robots Simulator](https://martian-robots-chi.vercel.app/)
 
 ## 🤝 Contributing
 
