@@ -1,73 +1,104 @@
-# React + TypeScript + Vite
+# Martian Robots Simulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript application that simulates robot movement on a bounded grid (Mars), following a sequence of instructions.
 
-Currently, two official plugins are available:
+## Problem Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project simulates the movement of robotic rovers across a rectangular grid on the surface of Mars. The goal is to track multiple robots based on sequences of instructions and report their final coordinates and orientation.
 
-## React Compiler
+Robots explore a rectangular grid and follow instructions:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `L` → Turn left (90°)
+- `R` → Turn right (90°)
+- `F` → Move forward
 
-## Expanding the ESLint configuration
+### ⚠️ Special Rule
+If a robot moves off the grid:
+- It is marked as **LOST**
+- Leaves a **scent**
+- Future robots ignore moves that would cause the same loss
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- ⚛️ React
+- 🟦 TypeScript
+- ⚡ Vite
+- 🎨 Tailwind CSS
+- 🧪 Vitest + React Testing Library
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 📦 Project Structure
+
+```
+src/
+  components/
+  utils/
+  types/
+  test/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Install dependencies
+```bash
+yarn install
 ```
+
+### Run app
+```bash
+yarn dev
+```
+
+### Run tests
+```bash
+yarn test
+```
+
+---
+
+## 🧪 Example Input
+
+```
+5 3
+1 1 E
+RFRFRFRF
+3 2 N
+FRRFLLFFRRFLL
+0 3 W
+LLFFFLFLFL
+```
+
+### ✅ Output
+
+```
+1 1 E
+3 3 N LOST
+2 3 S
+```
+
+---
+
+## 📈 Future Improvements
+
+- Visual grid with robot animation
+- Zustand state management
+- Step-by-step simulation mode
+- Input validation UI
+- Mobile responsiveness
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome. Please follow the PR template.
+
+---
+
+## 📄 License
+
+MIT
