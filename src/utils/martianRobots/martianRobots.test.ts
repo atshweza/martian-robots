@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { simulateRobots, turnLeft, turnRight } from './martianRobots';
+import { processRobot, simulateRobots, turnLeft, turnRight } from './martianRobots';
 
 vi.mock('./constants', () => ({
   DIRECTIONS: ['N', 'E', 'S', 'W'],
@@ -47,6 +47,31 @@ describe('Martian Robots', () => {
 
     it('should turn right from W to N', () => {
       expect(turnRight('W')).toBe('N');
+    });
+  });
+
+  describe('processRobot', () => {
+    it('should move forward and update position', () => {
+      const result = processRobot(0, 0, 'N', 'F', 5, 5, new Set());
+      expect(result).toEqual({ coordinates: { x: 0, y: 1 }, direction: 'N', lost: false });
+    });
+
+    it('should change direction on turn commands', () => {
+      const result = processRobot(1, 1, 'N', 'LLR', 5, 5, new Set());
+      expect(result).toEqual({ coordinates: { x: 1, y: 1 }, direction: 'W', lost: false });
+    });
+
+    it('should mark as lost when moving off grid and leave scent', () => {
+      const scents = new Set<string>();
+      const result = processRobot(0, 0, 'S', 'F', 5, 5, scents);
+      expect(result).toEqual({ coordinates: { x: 0, y: 0 }, direction: 'S', lost: true });
+      expect(scents.has('0,0')).toBeTruthy();
+    });
+
+    it('should ignore a move that would fall when scent is present', () => {
+      const scents = new Set<string>(['0,0']);
+      const result = processRobot(0, 0, 'S', 'F', 5, 5, scents);
+      expect(result).toEqual({ coordinates: { x: 0, y: 0 }, direction: 'S', lost: false });
     });
   });
 
